@@ -26,6 +26,14 @@ iptables -A INPUT -p tcp --dport $SSH_PORT -j ACCEPT
 # Allow Pings
 iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
 
+# Allow git
+iptables -A INPUT -p tcp --dport 9418 -j ACCEPT
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# Allow HTTP
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+
 echo "Iptables configuration complete."
 #iptables-save # if using iptables-persistent
 #echo "Saved configuration to be persistent"
