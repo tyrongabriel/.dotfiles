@@ -10,7 +10,7 @@ LIMIT_DELAY=120 # 120seconds
 iptables -F
 
 # Set the default policies to DROP
-iptables -P INPUT DROP
+iptables -P INPUT DROP 
 iptables -P FORWARD DROP
 iptables -P OUTPUT ACCEPT
 
@@ -25,10 +25,20 @@ iptables -A INPUT -p tcp --dport $SSH_PORT -j ACCEPT
 
 # Allow Pings
 iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
+
+# Prevent DOS Attacks
+iptables -A INPUT -p tcp --dport 80 -m limit --limit 250/minute --limit-burst 100 -j ACCEPT
 
 # Allow git
 iptables -A INPUT -p tcp --dport 9418 -j ACCEPT
 iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# Allow DNS Queries for Git
+iptables -A OUTPUT -p udp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT  -p udp --sport 53 -m state --state ESTABLISHED     -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT  -p tcp --sport 53 -m state --state ESTABLISHED     -j ACCEPT
 
 # Allow HTTP
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT
