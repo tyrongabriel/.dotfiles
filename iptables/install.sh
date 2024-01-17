@@ -32,7 +32,14 @@ iptables -A INPUT -p tcp --dport 80 -m limit --limit 250/minute --limit-burst 10
 
 # Allow git
 iptables -A INPUT -p tcp --dport 9418 -j ACCEPT
-iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 9418 -j ACCEPT
+
+# Allow SSH for git
+iptables -A INPUT -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+
 
 # Allow DNS Queries for Git
 iptables -A OUTPUT -p udp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
