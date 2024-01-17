@@ -10,6 +10,6 @@ iptables -A SSHATTACK -j DROP
 # Logs in /var/log/syslog 
 # Be sure to check SSH port
 iptables -A INPUT -i eth0 -p tcp -m state --dport 22022 --state NEW -m recent --set
-iptables -A INPUT -i eth0 -p tcp -m state --dport 22022 --state NEW -m recent --update --seconds 120 -- hitcount 5 -j SSHATTACK
+iptables -A INPUT -i eth0 -p tcp -m state --dport 22022 --state NEW -m recent --update --seconds 120 --hitcount 5 -j SSHATTACK
 
 
