@@ -9,7 +9,7 @@ PermitRootLogin no
 #AllowUsers tyron
 
 ## Networking
-Port 22 # Change from default for extra security
+Port 22022 #22 # Change from default for extra security
 
 ## Protocol
 Protocol 2
