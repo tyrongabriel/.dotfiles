@@ -32,7 +32,7 @@ iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
 
 # Prevent DOS Attacks
 iptables -A INPUT -p tcp --dport 80 -m limit --limit 250/minute --limit-burst 100 -j ACCEPT
-
+iptables -A INPUT -p tcp --dport 443 -m limit --limit 250/minute --limit-burst 100 -j ACCEPT
 # Allow git
 iptables -A INPUT -p tcp --dport 9418 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 9418 -j ACCEPT
