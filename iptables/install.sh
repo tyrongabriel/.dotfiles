@@ -6,8 +6,11 @@ SSH_PORT=22022
 LIMIT_BURST=5
 LIMIT_DELAY=120 # 120seconds 
 
-# Flush existing rules
+# Flush existing rules!
 iptables -F
+iptables -t nat -F
+iptables -t mangle -F
+iptables -X
 
 # Set the default policies to DROP
 iptables -P INPUT DROP 
@@ -52,5 +55,5 @@ iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 
 echo "Iptables configuration complete."
-#iptables-save # if using iptables-persistent
+iptables-save # if using iptables-persistent
 #echo "Saved configuration to be persistent"
