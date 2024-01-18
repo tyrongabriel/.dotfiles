@@ -13,7 +13,8 @@ iptables -t mangle -F
 iptables -X
 
 # Set the default policies to DROP
-iptables -P INPUT DROP 
+iptables -P INPUT ACCEPT
+#iptables -P INPUT DROP 
 iptables -P FORWARD DROP
 iptables -P OUTPUT ACCEPT
 
