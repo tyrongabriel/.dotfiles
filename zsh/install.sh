@@ -25,6 +25,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/p
 # Create link for config
 echo "Copying config from dotfiles"
 ln -sf ~/.dotfiles/zsh/.zshrc ~/.zshrc
+ln -sf ~/.dotfiles/zsh/.p10k.zsh ~/.p10k.zsh
 
 # Add zsh to shells
 echo "Add zsh to shells"
